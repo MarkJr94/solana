@@ -1,0 +1,1665 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Solana: Blockchain Rebuilt for Scale</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400|Poppins:300,400" rel="stylesheet">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <img src="https://manuel-calavera.github.io/images/logo.png" alt="">
+            <ol class="chapter"><li><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="terminology.html"><strong aria-hidden="true">2.</strong> Terminology</a></li><li><a href="getting-started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><a href="programs.html"><strong aria-hidden="true">4.</strong> Programming Model</a></li><li><a href="cluster.html"><strong aria-hidden="true">5.</strong> A Solana Cluster</a></li><li><ol class="section"><li><a href="synchronization.html"><strong aria-hidden="true">5.1.</strong> Synchronization</a></li><li><a href="leader-rotation.html"><strong aria-hidden="true">5.2.</strong> Leader Rotation</a></li><li><a href="storage.html"><strong aria-hidden="true">5.3.</strong> Ledger Replication</a></li></ol></li><li><a href="fullnode.html"><strong aria-hidden="true">6.</strong> Anatomy of a Fullnode</a></li><li><ol class="section"><li><a href="tpu.html"><strong aria-hidden="true">6.1.</strong> TPU</a></li><li><a href="tvu.html"><strong aria-hidden="true">6.2.</strong> TVU</a></li><li><a href="gossip.html"><strong aria-hidden="true">6.3.</strong> Gossip Service</a></li><li><a href="runtime.html"><strong aria-hidden="true">6.4.</strong> The Runtime</a></li></ol></li><li><a href="appendix.html"><strong aria-hidden="true">7.</strong> Appendix</a></li><li><ol class="section"><li><a href="jsonrpc-api.html"><strong aria-hidden="true">7.1.</strong> JSON RPC API</a></li><li><a href="wallet.html"><strong aria-hidden="true">7.2.</strong> solana-wallet CLI</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            
+                            
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Solana: Blockchain Rebuilt for Scale</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#what-is-solana" id="what-is-solana"><h1>What is Solana?</h1></a>
+<p>Solana is the name of an open source project that is implementing a new
+high-performance, permissionless blockchain. Solana is also the name of a
+company headquartered in San Francisco that maintains the open source project.</p>
+<a class="header" href="#about-this-book" id="about-this-book"><h1>About this Book</h1></a>
+<p>This book describes the Solana open source project, a blockchain built from the
+ground up for scale. The book covers why to use it, how to use it, how it
+works, and why it will continue to work long after the company Solana closes
+its doors. The goal of the Solana architecture is to demonstrate there exists a
+set of software algorithms that when used in combination to implement a
+blockchain, removes software as a performance bottleneck, allowing transaction
+throughput to scale proportionally with network bandwidth. The architecture
+goes on to satisfy all three desirable properties of a proper blockchain: that
+it not only be scalable, but that it is also secure and decentralized.</p>
+<p>The architecture describes a theoretical upper bound of 710 thousand
+transactions per second (tps) on a standard gigabit network and 28.4 million
+tps on 40 gigabit. Furthermore, the architecture supports safe, concurrent
+execution of programs authored in general purpose programming languages such as
+C or Rust.</p>
+<a class="header" href="#disclaimer" id="disclaimer"><h1>Disclaimer</h1></a>
+<p>All claims, content, designs, algorithms, estimates, roadmaps, specifications,
+and performance measurements described in this project are done with the
+author's best effort. It is up to the reader to check and validate their
+accuracy and truthfulness. Furthermore, nothing in this project constitutes a
+solicitation for investment.</p>
+<a class="header" href="#history-of-the-solana-codebase" id="history-of-the-solana-codebase"><h1>History of the Solana Codebase</h1></a>
+<p>In November of 2017 Anatoly Yakovenko published a whitepaper describing Proof
+of History, a technique for keeping time between computers that do not trust
+one another. From Anatoly's previous experience designing distributed systems
+at Qualcomm, Mesosphere and Dropbox, he knew that a reliable clock makes
+network synchronization very simple. When synchronization is simple the
+resulting network can be blazing fast, bound only by network bandwidth.</p>
+<p>Anatoly watched as blockchain systems without clocks, such as Bitcoin and
+Ethereum, struggled to scale beyond 15 transactions per second worldwide when
+centralized payment systems such as Visa required peaks of 65,000. Without a
+clock, it was clear they'd never graduate to being the global payment system or
+global supercomputer they had dreamed to be. When Anatoly solved the problem of
+getting computers that don’t trust each other to agree on time, he knew he had
+the key to bring 40 years of distributed systems research to the world of
+blockchain. The resulting cluster wouldn't be just 10 times faster, or a 100
+times, or a 1,000 times, but 10,000 times faster right out of the gate!</p>
+<p>Anatoly's implementation began in a private codebase and was implemented in the
+C programming language. Greg Fitzgerald, who had previously worked with Anatoly
+at semiconductor giant Qualcomm Incorporated, encouraged him to reimplement the
+project in the Rust programming language. Greg had worked on the LLVM compiler
+infrastructure, which underlies both the Clang C/C++ compiler as well as the
+Rust compiler. Greg claimed that the language's safety guarantees would improve
+software productivity and that its lack of a garbage collector would allow
+programs to perform as well as those written in C.  Anatoly gave it a shot and
+just two weeks later, had migrated his entire codebase to Rust. Sold.  With
+plans to weave all the world's transactions together on a single, scalable
+blockchain, Anatoly called the project Loom.</p>
+<p>On February 13th of 2018, Greg began prototyping the first open source
+implementation of Anatoly's whitepaper. The project was published to GitHub
+under the name Silk in the loomprotocol organization. On February 28th, Greg
+made his first release, demonstrating 10 thousand signed transactions could be
+verified and processed in just over half a second. Shortly after, another
+former Qualcomm cohort, Stephen Akridge, demonstrated throughput could be
+massively improved by offloading signature verification to graphics processors.
+Anatoly recruited Greg, Stephen and three others to co-found a company, then
+called Loom.</p>
+<p>Around the same time, Ethereum-based project Loom Network sprung up and many
+people were confused if they were the same project. The Loom team decided it
+would rebrand. They chose the name Solana, a nod to a small beach town North of
+San Diego called Solana Beach, where Anatoly, Greg and Stephen lived and surfed
+for three years when they worked for Qualcomm. On March 28th, the team created
+the Solana Labs GitHub organization and renamed Greg's prototype Silk to
+Solana.</p>
+<p>In June of 2018, the team scaled up the technology to run on cloud-based
+networks and on July 19th, published a 50-node, permissioned, public testnet
+consistently supporting bursts of 250,000 transactions per second. In the most
+recent release, v0.10 Pillbox, the team published a permissioned testnet
+running 150 nodes on a gigabit network and demonstrated soak tests processing
+an <em>average</em> of 200 thousand transactions per second with bursts over 500
+thousand. The project was also extended to support on-chain programs written in
+the C programming language and run concurrently in a safe execution environment
+called BPF. Next step: going permissionless.</p>
+<a class="header" href="#what-is-a-solana-cluster" id="what-is-a-solana-cluster"><h1>What is a Solana Cluster?</h1></a>
+<p>A cluster is a set of computers that work together and can be viewed from the
+outside as a single system. A Solana cluster is a set of independently owned
+computers working together (and sometimes against each other) to verify the
+output of untrusted, user-submitted programs. A Solana cluster can be utilized
+any time a user wants to preserve an immutable record of events in time or
+programmatic interpretations of those events. One use is to track which of the
+computers did meaningful work to keep the cluster running. Another use might be
+to track the possession of real-world assets. In each case, the cluster
+produces a record of events called the ledger. It will be preserved for the
+lifetime of the cluster. As long as someone somewhere in the world maintains a
+copy of the ledger, the output of its programs (which may contain a record of
+who possesses what) will forever be reproducible, independent of the
+organization that launched it.</p>
+<a class="header" href="#what-are-sols" id="what-are-sols"><h1>What are Sols?</h1></a>
+<p>A sol is the name of Solana's native token, which can be passed to nodes in a
+Solana cluster in exchange for running an on-chain program or validating its
+output. The Solana protocol defines that only 1 billion sols will ever exist,
+but that the system may perform micropayments of fractional sols and that a sol
+may be split as many as 34 times. The fractional sol is called a <em>lamport</em>. It
+is named in honor of Solana's biggest technical influence, <a href="https://en.wikipedia.org/wiki/Leslie_Lamport">Leslie
+Lamport</a>. A lamport has a value
+of approximately 0.0000000000582 sol (2^-34).</p>
+<a class="header" href="#terminology" id="terminology"><h1>Terminology</h1></a>
+<a class="header" href="#teminology-currently-in-use" id="teminology-currently-in-use"><h2>Teminology Currently in Use</h2></a>
+<p>The following list contains words commonly used throughout the Solana
+architecture.</p>
+<a class="header" href="#account" id="account"><h4>account</h4></a>
+<p>A persistent file addressed by <a href="#public-key">public key</a> and with
+<a href="#lamport">lamports</a> tracking its lifetime.</p>
+<a class="header" href="#block" id="block"><h4>block</h4></a>
+<p>A contiguous set of <a href="#entry">entries</a> on the ledger covered by a <a href="#ledger-vote">vote</a>.
+The length of a block is network hyper parameter, specified in <a href="#tick">ticks</a>.
+Also called <a href="#voting-period">voting period</a>.</p>
+<a class="header" href="#bootstrap-leader" id="bootstrap-leader"><h4>bootstrap leader</h4></a>
+<p>The first <a href="#fullnode">fullnode</a> to take the <a href="#leader">leader</a> role.</p>
+<a class="header" href="#client" id="client"><h4>client</h4></a>
+<p>A <a href="#node">node</a> that utilizes the <a href="#cluster">cluster</a>.</p>
+<a class="header" href="#cluster" id="cluster"><h4>cluster</h4></a>
+<p>A set of <a href="#fullnode">fullnodes</a> maintaining a single <a href="#ledger">ledger</a>.</p>
+<a class="header" href="#control-plane" id="control-plane"><h4>control plane</h4></a>
+<p>A gossip network connecting all <a href="#node">nodes</a> of a <a href="#cluster">cluster</a>.</p>
+<a class="header" href="#data-plane" id="data-plane"><h4>data plane</h4></a>
+<p>A multicast network used to efficiently validate <a href="#entry">entries</a> and gain
+consensus.</p>
+<a class="header" href="#entry" id="entry"><h4>entry</h4></a>
+<p>An entry on the <a href="#ledger">ledger</a> either a <a href="#tick">tick</a> or a <a href="#transactions-entry">transactions
+entry</a>.</p>
+<a class="header" href="#confirmation" id="confirmation"><h4>confirmation</h4></a>
+<p>The wallclock duration between a <a href="#leader">leader</a> creating a <a href="#tick">tick
+entry</a> and recognizing a supermajority of <a href="#ledger-vote">ledger votes</a>
+with a ledger interpretation that matches the leader's.</p>
+<a class="header" href="#fork" id="fork"><h4>fork</h4></a>
+<p>A <a href="#ledger">ledger</a> derived from common entries but then diverged.</p>
+<a class="header" href="#fullnode" id="fullnode"><h4>fullnode</h4></a>
+<p>A full participant in the <a href="#cluster">cluster</a> either a <a href="#leader">leader</a> or
+<a href="#validator">validator</a> node.</p>
+<a class="header" href="#fullnode-state" id="fullnode-state"><h4>fullnode state</h4></a>
+<p>The result of interpreting all programs on the ledger a given <a href="#tick-height">tick
+height</a>. It includes at least the set of all <a href="#account">accounts</a>
+holding nonzero <a href="#native-tokens">native tokens</a>.</p>
+<a class="header" href="#genesis-block" id="genesis-block"><h4>genesis block</h4></a>
+<p>The first <a href="#block">block</a> of the <a href="#ledger">ledger</a>.</p>
+<a class="header" href="#hash" id="hash"><h4>hash</h4></a>
+<p>A digital fingerprint of a sequence of bytes.</p>
+<a class="header" href="#instruction" id="instruction"><h4>instruction</h4></a>
+<p>The smallest unit of a <a href="#program">program</a> that a <a href="#client">client</a> can include
+in a <a href="#instruction">transaction</a>.</p>
+<a class="header" href="#keypair" id="keypair"><h4>keypair</h4></a>
+<p>A <a href="#public-key">public key</a> and coesponding <a href="#secret-key">secret key</a>.</p>
+<a class="header" href="#lamport" id="lamport"><h4>lamport</h4></a>
+<p>A fractional <a href="#native-token">native token</a> with the value of approximately
+0.0000000000582 <a href="#sol">sol</a> (2^-34).</p>
+<a class="header" href="#loader" id="loader"><h4>loader</h4></a>
+<p>A <a href="#program">program</a> with the ability to interpret the binary encoding
+of other on-chain programs.</p>
+<a class="header" href="#leader" id="leader"><h4>leader</h4></a>
+<p>The role of a <a href="#fullnode">fullnode</a> when it is appending <a href="#entry">entries</a> to
+the <a href="#ledger">ledger</a>.</p>
+<a class="header" href="#leader-schedule" id="leader-schedule"><h4>leader schedule</h4></a>
+<p>A sequence of <a href="#fullnode">fullnode</a> <a href="#public-key">public keys</a>. The cluster
+uses the leader schedule to determine which fullnode is the <a href="#leader">leader</a>
+at any moment in time.</p>
+<a class="header" href="#ledger" id="ledger"><h4>ledger</h4></a>
+<p>A list of <a href="#entry">entries</a> containing <a href="#transaction">transactions</a> signed by
+<a href="#client">clients</a>.</p>
+<a class="header" href="#ledger-vote" id="ledger-vote"><h4>ledger vote</h4></a>
+<p>A <a href="#hash">hash</a> of the <a href="#fullnode-state">fullnode's state</a> at a given <a href="#tick-height">tick
+height</a>. It comprises a validator's affirmation that a
+<a href="#block">block</a> it has received has been verified, as well as a promise not to
+vote for a conflicting <a href="#block">block</a> (i.e. <a href="#fork">fork</a>) for a specific amount
+of time, the <a href="#lockout">lockout</a> period.</p>
+<a class="header" href="#lockout" id="lockout"><h4>lockout</h4></a>
+<p>The duration of time for which a <a href="#fullnode">fullnode</a> is unable to
+<a href="#ledger-vote">vote</a> on another <a href="#fork">fork</a>.</p>
+<a class="header" href="#native-token" id="native-token"><h4>native token</h4></a>
+<p>The <a href="#token">token</a> used to track work done by <a href="#node">nodes</a> in a cluster.</p>
+<a class="header" href="#node" id="node"><h4>node</h4></a>
+<p>A computer particpating in a <a href="#cluster">cluster</a>.</p>
+<a class="header" href="#node-count" id="node-count"><h4>node count</h4></a>
+<p>The number of <a href="#fullnode">fullnodes</a> participating in a <a href="#cluster">cluster</a>.</p>
+<a class="header" href="#program" id="program"><h4>program</h4></a>
+<p>The code that interprets <a href="#instruction">instructions</a>.</p>
+<a class="header" href="#program-id" id="program-id"><h4>program ID</h4></a>
+<p>The public key of the <a href="#account">account</a> containing a <a href="#program">program</a>.</p>
+<a class="header" href="#public-key" id="public-key"><h4>public key</h4></a>
+<p>The public key of a <a href="#keypair">keypair</a>.</p>
+<a class="header" href="#replicator" id="replicator"><h4>replicator</h4></a>
+<p>A type of <a href="#client">client</a> that stores <a href="#ledger">ledger</a> segments and
+periodically submits storage proofs to the cluster; not a
+<a href="#fullnode">fullnode</a>.</p>
+<a class="header" href="#secret-key" id="secret-key"><h4>secret key</h4></a>
+<p>The private key of a <a href="#keypair">keypair</a>.</p>
+<a class="header" href="#slot" id="slot"><h4>slot</h4></a>
+<p>The time (i.e. number of <a href="#block">blocks</a>) for which a <a href="#leader">leader</a>
+ingests transactions and produces <a href="#entry">entries</a>.</p>
+<a class="header" href="#sol" id="sol"><h4>sol</h4></a>
+<p>The <a href="#native-token">native token</a> tracked by a <a href="#cluster">cluster</a> recognized
+by the company Solana.</p>
+<a class="header" href="#stake" id="stake"><h4>stake</h4></a>
+<p>Tokens forfeit to the <a href="#cluster">cluster</a> if malicious <a href="#fullnode">fullnode</a>
+behavior can be proven.</p>
+<a class="header" href="#tick" id="tick"><h4>tick</h4></a>
+<p>A ledger <a href="#entry">entry</a> that estimates wallclock duration.</p>
+<a class="header" href="#tick-height" id="tick-height"><h4>tick height</h4></a>
+<p>The Nth <a href="#tick">tick</a> in the <a href="#ledger">ledger</a>.</p>
+<a class="header" href="#token" id="token"><h4>token</h4></a>
+<p>A scarce, fungible member of a set of tokens.</p>
+<a class="header" href="#tps" id="tps"><h4>tps</h4></a>
+<p><a href="#transaction">Transactions</a> per second.</p>
+<a class="header" href="#transaction" id="transaction"><h4>transaction</h4></a>
+<p>One or more <a href="#instruction">instructions</a> signed by the <a href="#client">client</a> and
+executed atomically.</p>
+<a class="header" href="#transactions-entry" id="transactions-entry"><h4>transactions entry</h4></a>
+<p>A set of <a href="#transaction">transactions</a> that may be executed in parallel.</p>
+<a class="header" href="#validator" id="validator"><h4>validator</h4></a>
+<p>The role of a <a href="#fullnode">fullnode</a> when it is validating the
+<a href="#leader">leader's</a> latest <a href="#entry">entries</a>.</p>
+<a class="header" href="#vote" id="vote"><h4>vote</h4></a>
+<p>See <a href="#ledger-vote">ledger vote</a></p>
+<a class="header" href="#voting-period" id="voting-period"><h4>voting period</h4></a>
+<p>See <a href="#block">block</a></p>
+<a class="header" href="#terminology-reserved-for-future-use" id="terminology-reserved-for-future-use"><h2>Terminology Reserved for Future Use</h2></a>
+<p>The following keywords do not have any functionality but are reserved by Solana
+for potential future use.</p>
+<a class="header" href="#blob" id="blob"><h4>blob</h4></a>
+<p>A fraction of a <a href="#block">block</a>; the smallest unit sent between
+<a href="#fullnode">fullnodes</a>.</p>
+<a class="header" href="#cbc-block" id="cbc-block"><h4>CBC block</h4></a>
+<p>Smallest encrypted chunk of ledger, an encrypted ledger segment would be made of
+many CBC blocks; <code>ledger_segment_size / cbc_block_size</code> to be exact.</p>
+<a class="header" href="#curio" id="curio"><h4>curio</h4></a>
+<p>A scarce, non-fungible member of a set of curios.</p>
+<a class="header" href="#epoch" id="epoch"><h4>epoch</h4></a>
+<p>The time, i.e. number of <a href="#slot">slots</a>, for which a <a href="#leader-schedule">leader
+schedule</a> is valid.</p>
+<a class="header" href="#fake-storage-proof" id="fake-storage-proof"><h4>fake storage proof</h4></a>
+<p>A proof which has the same format as a storage proof, but the sha state is
+actually from hashing a known ledger value which the storage client can reveal
+and is also easily verifiable by the network on-chain.</p>
+<a class="header" href="#ledger-segment" id="ledger-segment"><h4>ledger segment</h4></a>
+<p>A sequence of <a href="#block">blocks</a>.</p>
+<a class="header" href="#light-client" id="light-client"><h4>light client</h4></a>
+<p>A type of <a href="#client">client</a> that can verify it's pointing to a valid
+<a href="#cluster">cluster</a>.</p>
+<a class="header" href="#mips" id="mips"><h4>mips</h4></a>
+<p>Millions of <a href="#instruction">instructions</a> per second.</p>
+<a class="header" href="#runtime" id="runtime"><h4>runtime</h4></a>
+<p>The component of a <a href="#fullnode">fullnode</a> responsible for <a href="#program">program</a>
+execution.</p>
+<a class="header" href="#storage-proof" id="storage-proof"><h4>storage proof</h4></a>
+<p>A set of SHA hash states which is constructed by sampling the encrypted version
+of the stored <a href="#ledger-segment">ledger segment</a> at certain offsets.</p>
+<a class="header" href="#storage-proof-challenge" id="storage-proof-challenge"><h4>storage proof challenge</h4></a>
+<p>A <a href="#transaction">transaction</a> from a <a href="#replicator">replicator</a> that verifiably
+proves that a <a href="#validator">validator</a> <a href="#storage-proof-confirmation">confirmed</a>
+a <a href="#fake-storage-proof">fake proof</a>.</p>
+<a class="header" href="#storage-proof-claim" id="storage-proof-claim"><h4>storage proof claim</h4></a>
+<p>A <a href="#transaction">transaction</a> from a <a href="#validator">validator</a> which is after the
+timeout period given from the <a href="#storage-proof-confirmation">storage proof
+confirmation</a> and which no successful
+<a href="#storage-proof-challenge">challenges</a> have been observed which rewards the
+parties of the <a href="#storage-proof">storage proofs</a> and confirmations.</p>
+<a class="header" href="#storage-proof-confirmation" id="storage-proof-confirmation"><h4>storage proof confirmation</h4></a>
+<p>A <a href="#transaction">transaction</a> from a <a href="#validator">validator</a> which indicates
+the set of <a href="#storage-proof">real</a> and <a href="#fake-storage-proof">fake proofs</a>
+submitted by a <a href="#replicator">replicator</a>. The transaction would contain a list
+of proof hash values and a bit which says if this hash is valid or fake.</p>
+<a class="header" href="#storage-validation-capacity" id="storage-validation-capacity"><h4>storage validation capacity</h4></a>
+<p>The number of keys and samples that a <a href="#validator">validator</a> can verify each
+storage epoch.</p>
+<a class="header" href="#thin-client" id="thin-client"><h4>thin client</h4></a>
+<p>A type of <a href="#client">client</a> that trusts it is communicating with a valid
+<a href="#cluster">cluster</a>.</p>
+<a class="header" href="#getting-started" id="getting-started"><h1>Getting Started</h1></a>
+<p>The Solana git repository contains all the scripts you might need to spin up your
+own local testnet. Depending on what you're looking to achieve, you may want to
+run a different variation, as the full-fledged, performance-enhanced
+multinode testnet is considerably more complex to set up than a Rust-only,
+singlenode testnode.  If you are looking to develop high-level features, such
+as experimenting with smart contracts, save yourself some setup headaches and
+stick to the Rust-only singlenode demo.  If you're doing performance optimization
+of the transaction pipeline, consider the enhanced singlenode demo. If you're
+doing consensus work, you'll need at least a Rust-only multinode demo. If you want
+to reproduce our TPS metrics, run the enhanced multinode demo.</p>
+<p>For all four variations, you'd need the latest Rust toolchain and the Solana
+source code:</p>
+<p>First, install Rust's package manager Cargo.</p>
+<pre><code class="language-bash">$ curl https://sh.rustup.rs -sSf | sh
+$ source $HOME/.cargo/env
+</code></pre>
+<p>Now checkout the code from github:</p>
+<pre><code class="language-bash">$ git clone https://github.com/solana-labs/solana.git
+$ cd solana
+</code></pre>
+<p>The demo code is sometimes broken between releases as we add new low-level
+features, so if this is your first time running the demo, you'll improve
+your odds of success if you check out the
+<a href="https://github.com/solana-labs/solana/releases">latest release</a>
+before proceeding:</p>
+<pre><code class="language-bash">$ TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+$ git checkout $TAG
+</code></pre>
+<a class="header" href="#configuration-setup" id="configuration-setup"><h3>Configuration Setup</h3></a>
+<p>The network is initialized with a genesis ledger and fullnode configuration files.
+These files can be generated by running the following script.</p>
+<pre><code class="language-bash">$ ./multinode-demo/setup.sh
+</code></pre>
+<a class="header" href="#drone" id="drone"><h3>Drone</h3></a>
+<p>In order for the fullnodes and clients to work, we'll need to
+spin up a drone to give out some test tokens.  The drone delivers Milton
+Friedman-style &quot;air drops&quot; (free tokens to requesting clients) to be used in
+test transactions.</p>
+<p>Start the drone with:</p>
+<pre><code class="language-bash">$ ./multinode-demo/drone.sh
+</code></pre>
+<a class="header" href="#singlenode-testnet" id="singlenode-testnet"><h3>Singlenode Testnet</h3></a>
+<p>Before you start a fullnode, make sure you know the IP address of the machine you
+want to be the bootstrap leader for the demo, and make sure that udp ports 8000-10000 are
+open on all the machines you want to test with.</p>
+<p>Now start the bootstrap leader in a separate shell:</p>
+<pre><code class="language-bash">$ ./multinode-demo/bootstrap-leader.sh
+</code></pre>
+<p>Wait a few seconds for the server to initialize. It will print &quot;leader ready...&quot; when it's ready to
+receive transactions. The leader will request some tokens from the drone if it doesn't have any.
+The drone does not need to be running for subsequent leader starts.</p>
+<a class="header" href="#multinode-testnet" id="multinode-testnet"><h3>Multinode Testnet</h3></a>
+<p>To run a multinode testnet, after starting a leader node, spin up some
+additional full nodes in separate shells:</p>
+<pre><code class="language-bash">$ ./multinode-demo/fullnode-x.sh
+</code></pre>
+<p>To run a performance-enhanced full node on Linux,
+<a href="https://developer.nvidia.com/cuda-downloads">CUDA 10.0</a> must be installed on
+your system:</p>
+<pre><code class="language-bash">$ ./fetch-perf-libs.sh
+$ SOLANA_CUDA=1 ./multinode-demo/bootstrap-leader.sh
+$ SOLANA_CUDA=1 ./multinode-demo/fullnode-x.sh
+</code></pre>
+<a class="header" href="#testnet-client-demo" id="testnet-client-demo"><h3>Testnet Client Demo</h3></a>
+<p>Now that your singlenode or multinode testnet is up and running let's send it
+some transactions!</p>
+<p>In a separate shell start the client:</p>
+<pre><code class="language-bash">$ ./multinode-demo/client.sh # runs against localhost by default
+</code></pre>
+<p>What just happened? The client demo spins up several threads to send 500,000 transactions
+to the testnet as quickly as it can. The client then pings the testnet periodically to see
+how many transactions it processed in that time. Take note that the demo intentionally
+floods the network with UDP packets, such that the network will almost certainly drop a
+bunch of them. This ensures the testnet has an opportunity to reach 710k TPS. The client
+demo completes after it has convinced itself the testnet won't process any additional
+transactions. You should see several TPS measurements printed to the screen. In the
+multinode variation, you'll see TPS measurements for each validator node as well.</p>
+<a class="header" href="#public-testnet" id="public-testnet"><h2>Public Testnet</h2></a>
+<p>In this example the client connects to our public testnet. To run validators on the testnet you would need to open udp ports <code>8000-10000</code>.</p>
+<pre><code class="language-bash">$ ./multinode-demo/client.sh --network $(dig +short testnet.solana.com):8001 --duration 60
+</code></pre>
+<p>You can observe the effects of your client's transactions on our <a href="https://metrics.solana.com:3000/d/testnet/testnet-hud?orgId=2&amp;from=now-30m&amp;to=now&amp;refresh=5s&amp;var-testnet=testnet">dashboard</a></p>
+<a class="header" href="#linux-snap" id="linux-snap"><h2>Linux Snap</h2></a>
+<p>A Linux <a href="https://snapcraft.io/">Snap</a> is available, which can be used to easily
+get Solana running on supported Linux systems without building anything from
+source for evaluation.  Note that CUDA is not supported by the Snap so
+performance will be limited.</p>
+<p>The <code>edge</code> Snap channel is updated daily with the latest
+development from the <code>master</code> branch.  To install:</p>
+<pre><code class="language-bash">$ sudo snap install solana --edge --devmode
+</code></pre>
+<p>Once installed the usual Solana programs will be available as <code>solona.*</code> instead
+of <code>solana-*</code>.  For example, <code>solana.fullnode</code> instead of <code>solana-fullnode</code>.</p>
+<p>Update to the latest version at any time with:</p>
+<pre><code class="language-bash">$ snap info solana
+$ sudo snap refresh solana --devmode
+</code></pre>
+<a class="header" href="#daemon-support" id="daemon-support"><h3>Daemon Support</h3></a>
+<p>The snap supports running fullnodes and a drone as system daemons.</p>
+<p>Run <code>sudo snap get solana</code> to view the current daemon configuration.  To view
+daemon logs:</p>
+<ol>
+<li>Run <code>sudo snap logs -n=all solana</code> to view the daemon initialization log</li>
+<li>Runtime logging can be found under <code>/var/snap/solana/current/bootstrap-leader/</code>,
+<code>/var/snap/solana/current/fullnode/</code>, or <code>/var/snap/solana/current/drone/</code> depending
+on which <code>mode=</code> was selected.  Within each log directory the file <code>current</code>
+contains the latest log, and the files <code>*.s</code> (if present) contain older rotated
+logs.</li>
+</ol>
+<p>Disable the daemon at any time by running:</p>
+<pre><code class="language-bash">$ sudo snap set solana mode=
+</code></pre>
+<p>Runtime configuration files for the daemon can be found in
+<code>/var/snap/solana/current/config</code>.</p>
+<a class="header" href="#leader-daemon" id="leader-daemon"><h4>Leader Daemon</h4></a>
+<pre><code class="language-bash">$ sudo snap set solana mode=bootstrap-leader
+</code></pre>
+<p><code>rsync</code> must be configured and running on the leader.</p>
+<ol>
+<li>Ensure rsync is installed with <code>sudo apt-get -y install rsync</code></li>
+<li>Edit <code>/etc/rsyncd.conf</code> to include the following</li>
+</ol>
+<pre><code class="language-ini">[config]
+path = /var/snap/solana/current/config
+hosts allow = *
+read only = true
+</code></pre>
+<ol start="3">
+<li>Run <code>sudo systemctl enable rsync; sudo systemctl start rsync</code></li>
+<li>Test by running <code>rsync -Pzravv rsync://&lt;ip-address-of-leader&gt;/config solana-config</code> from another machine.  <strong>If the leader is running on a cloud
+provider it may be necessary to configure the Firewall rules to permit ingress
+to port tcp:873, tcp:9900 and the port range udp:8000-udp:10000</strong></li>
+</ol>
+<p>To run both the Leader and Drone:</p>
+<pre><code class="language-bash">$ sudo snap set solana mode=bootstrap-leader+drone
+
+</code></pre>
+<a class="header" href="#validator-daemon" id="validator-daemon"><h4>Validator daemon</h4></a>
+<pre><code class="language-bash">$ sudo snap set solana mode=fullnode
+
+</code></pre>
+<p>By default the node will attempt to connect to <strong>testnet.solana.com</strong>, override the
+cluster entrypoint IP address by running:</p>
+<pre><code class="language-bash">$ sudo snap set solana mode=fullnode entrypoint-ip=127.0.0.1 #&lt;-- change IP address
+</code></pre>
+<p>It's assumed that the node at the entrypoint IP will be running <code>rsync</code>
+configured as described in the previous <strong>Leader daemon</strong> section.</p>
+<a class="header" href="#programming-model" id="programming-model"><h1>Programming Model</h1></a>
+<p>A client interacts with a Solana cluster by sending it <em>transactions</em> with one
+or more <em>instructions</em>. The Solana <em>runtime</em> passes those instructions to
+user-contributed <em>programs</em>. An instruction might, for example, tell a program
+to move <em>tokens</em> from one <em>account</em> to another or create an interactive
+contract that governs how tokens are moved. Instructions are executed
+atomically. If any instruction is invalid, any changes made within the
+transaction are discarded.</p>
+<a class="header" href="#deploying-programs-to-a-cluster" id="deploying-programs-to-a-cluster"><h2>Deploying Programs to a Cluster</h2></a>
+<p><img alt="SDK tools" src="img/sdk-tools.svg" class="center"/></p>
+<p>As shown in the diagram above a client creates a program and compiles it to an
+ELF shared object containing BPF bytecode and sends it to the Solana cluster.
+The cluster stores the program locally and makes it available to clients via a
+<em>program ID</em>. The program ID is a <em>public key</em> generated by the client and is
+used to reference the program in subsequent transactions.</p>
+<p>A program may be written in any programming language that can target the
+Berkley Packet Filter (BPF) safe execution environment. The Solana SDK offers
+the best support for C programs, which is compiled to BPF using the <a href="https://llvm.org">LLVM
+compiler infrastructure</a>. Alternatively, a client might
+choose to bypass LLVM and use Python, Lua or C++ to generate BPF directly via
+the <a href="https://github.com/iovisor/bcc">BPF Compiler Collection</a> (BCC).</p>
+<a class="header" href="#storing-state-between-transactions" id="storing-state-between-transactions"><h2>Storing State between Transactions</h2></a>
+<p>If the program needs to store state between transactions, it does so using
+<em>accounts</em>. Accounts are similar to files in operating systems such as Linux.
+Like a file, an account may hold arbitrary data and that data persists beyond
+the lifetime of a program. Also like a file, an account includes metadata that
+tells the runtime who is allowed to access the data and how. Unlike a file, the
+account includes metadata for the lifetime of the file. That lifetime is
+expressed in &quot;tokens&quot;, which is a number of fractional native tokens, called
+<em>lamports</em>. Accounts are held in validator memory and pay &quot;rent&quot; to stay there.
+Each fullnode periodically scan all accounts and collects rent. Any account
+that drops to zero lamports is purged.</p>
+<p>If an account is marked &quot;executable&quot;, it will only be used by a <em>loader</em> to run
+programs. For example, a BPF-compiled program is marked executable and loaded
+by the BPF loader. No program is allowed to modify the contents of an
+executable account.</p>
+<p>An account also includes &quot;owner&quot; metadata. The owner is a program ID. The
+runtime grants the program write access to the account if its ID matches the
+owner. If an account is not owned by a program, the program is permitted to
+read its data and credit the account.</p>
+<p>In the same way that a Linux user uses a path to look up a file, a Solana
+client uses public keys to look up accounts. To create an account, the client
+generates a <em>keypair</em> and registers its public key using the CreateAccount
+instruction. Once registered, transactions reference account keys to grant
+programs access to accounts. The runtime grants programs read access by
+default. To grant write access, the client must either assign the account to a
+program or sign the transaction using the keypair's <em>secret key</em>. Since only
+the holder of the secret key can produce valid signatures matching the
+account's public key, the runtime recognizes the signature as authorization to
+modify account data or debit the account.</p>
+<p>After the runtime executes each of the transaction's instructions, it uses the
+account metadata and transaction signatures to verify that none of the access
+rules were violated. If a program violates an access rule, the runtime discards
+all account changes made by all instructions and marks the transaction as
+failed.</p>
+<a class="header" href="#a-solana-cluster" id="a-solana-cluster"><h1>A Solana Cluster</h1></a>
+<p>A Solana cluster is a set of fullnodes working together to serve client
+transactions and maintain the integrity of the ledger. Many clusters may
+coexist. When two clusters share a common genesis block, they attempt to
+converge. Otherwise, they simply ignore the existence of the other.
+Transactions sent to the wrong one are quietly rejected. In this chapter, we'll
+discuss how a cluster is created, how nodes join the cluster, how they share
+the ledger, how they ensure the ledger is replicated, and how they cope with
+buggy and malicious nodes.</p>
+<a class="header" href="#creating-a-cluster" id="creating-a-cluster"><h2>Creating a Cluster</h2></a>
+<p>Before starting any fullnodes, one first needs to create a <em>genesis block</em>.
+The block contains entries referencing two public keys, a <em>mint</em> and a
+<em>bootstrap leader</em>. The fullnode holding the bootstrap leader's secret key is
+responsible for appending the first entries to the ledger. It initializes its
+internal state with the mint's account. That account will hold the number of
+native tokens defined by the genesis block. The second fullnode then contacts
+the bootstrap leader to register as a <em>validator</em> or <em>replicator</em>. Additional
+fullnodes then register with any registered member of the cluster.</p>
+<p>A validator receives all entries from the leader and submits votes confirming
+those entries are valid. After voting, the validator is expected to store those
+entries until replicator nodes submit proofs that they have stored copies of
+it. Once the validator observes a sufficient number of copies exist, it deletes
+its copy.</p>
+<a class="header" href="#joining-a-cluster" id="joining-a-cluster"><h2>Joining a Cluster</h2></a>
+<p>Fullnodes and replicators enter the cluster via registration messages sent to
+its <em>control plane</em>. The control plane is implemented using a <em>gossip</em>
+protocol, meaning that a node may register with any existing node, and expect
+its registration to propagate to all nodes in the cluster. The time it takes
+for all nodes to synchronize is proportional to the square of the number of
+nodes participating in the cluster. Algorithmically, that's considered very
+slow, but in exchange for that time, a node is assured that it eventually has
+all the same information as every other node, and that that information cannot
+be censored by any one node.</p>
+<a class="header" href="#sending-transactions-to-a-cluster" id="sending-transactions-to-a-cluster"><h2>Sending Transactions to a Cluster</h2></a>
+<p>Clients send transactions to any fullnode's Transaction Processing Unit (TPU)
+port. If the node is in the validator role, it forwards the transaction to the
+designated leader. If in the leader role, the node bundles incoming
+transactions, timestamps them creating an <em>entry</em>, and pushes them onto the
+cluster's <em>data plane</em>. Once on the data plane, the transactions are validated
+by validator nodes and replicated by replicator nodes, effectively appending
+them to the ledger.</p>
+<a class="header" href="#confirming-transactions" id="confirming-transactions"><h2>Confirming Transactions</h2></a>
+<p>A Solana cluster is capable of subsecond <em>confirmation</em> for up to 150 nodes
+with plans to scale up to hundreds of thousands of nodes. Once fully
+implemented, confirmation times are expected to increase only with the
+logarithm of the number of validators, where the logarithm's base is very high.
+If the base is one thousand, for example, it means that for the first thousand
+nodes, confirmation will be the duration of three network hops plus the time it
+takes the slowest validator of a supermajority to vote. For the next million
+nodes, confirmation increases by only one network hop.</p>
+<p>Solana defines confirmation as the duration of time from when the leader
+timestamps a new entry to the moment when it recognizes a supermajority of
+ledger votes.</p>
+<p>A gossip network is much too slow to achieve subsecond confirmation once the
+network grows beyond a certain size. The time it takes to send messages to all
+nodes is proportional to the square of the number of nodes. If a blockchain
+wants to achieve low confirmation and attempts to do it using a gossip network,
+it will be forced to centralize to just a handful of nodes.</p>
+<p>Scalable confirmation can be achieved using the follow combination of
+techniques:</p>
+<ol>
+<li>Timestamp transactions with a VDF sample and sign the timestamp.</li>
+<li>Split the transactions into batches, send each to separate nodes and have
+each node share its batch with its peers.</li>
+<li>Repeat the previous step recursively until all nodes have all batches.</li>
+</ol>
+<p>Solana rotates leaders at fixed intervals, called <em>slots</em>. Each leader may only
+produce entries during its allotted slot. The leader therefore timestamps
+transactions so that validators may lookup the public key of the designated
+leader. The leader then signs the timestamp so that a validator may verify the
+signature, proving the signer is owner of the designated leader's public key.</p>
+<p>Next, transactions are broken into batches so that a node can send transactions
+to multiple parties without making multiple copies. If, for example, the leader
+needed to send 60 transactions to 6 nodes, it would break that collection of 60
+into batches of 10 transactions and send one to each node. This allows the
+leader to put 60 transactions on the wire, not 60 transactions for each node.
+Each node then shares its batch with its peers. Once the node has collected all
+6 batches, it reconstructs the original set of 60 transactions.</p>
+<p>A batch of transactions can only be split so many times before it is so small
+that header information becomes the primary consumer of network bandwidth. At
+the time of this writing, the approach is scaling well up to about 150
+validators. To scale up to hundreds of thousands of validators, each node can
+apply the same technique as the leader node to another set of nodes of equal
+size. We call the technique <em>data plane fanout</em>, but it is not yet implemented.</p>
+<a class="header" href="#synchronization" id="synchronization"><h1>Synchronization</h1></a>
+<p>It's possible for a centralized database to process 710,000 transactions per
+second on a standard gigabit network if the transactions are, on average, no
+more than 176 bytes. A centralized database can also replicate itself and
+maintain high availability without significantly compromising that transaction
+rate using the distributed system technique known as Optimistic Concurrency
+Control <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.65.4735">[H.T.Kung, J.T.Robinson
+(1981)]</a>. At
+Solana, we're demonstrating that these same theoretical limits apply just as
+well to blockchain on an adversarial network. The key ingredient? Finding a way
+to share time when nodes can't trust one-another. Once nodes can trust time,
+suddenly ~40 years of distributed systems research becomes applicable to
+blockchain!</p>
+<blockquote>
+<p>Perhaps the most striking difference between algorithms obtained by our
+method and ones based upon timeout is that using timeout produces a
+traditional distributed algorithm in which the processes operate
+asynchronously, while our method produces a globally synchronous one in which
+every process does the same thing at (approximately) the same time. Our
+method seems to contradict the whole purpose of distributed processing, which
+is to permit different processes to operate independently and perform
+different functions. However, if a distributed system is really a single
+system, then the processes must be synchronized in some way. Conceptually,
+the easiest way to synchronize processes is to get them all to do the same
+thing at the same time. Therefore, our method is used to implement a kernel
+that performs the necessary synchronization--for example, making sure that
+two different processes do not try to modify a file at the same time.
+Processes might spend only a small fraction of their time executing the
+synchronizing kernel; the rest of the time, they can operate
+independently--e.g., accessing different files. This is an approach we have
+advocated even when fault-tolerance is not required. The method's basic
+simplicity makes it easier to understand the precise properties of a system,
+which is crucial if one is to know just how fault-tolerant the system is.
+<a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.71.1078">[L.Lamport
+(1984)]</a></p>
+</blockquote>
+<a class="header" href="#verifiable-delay-functions" id="verifiable-delay-functions"><h2>Verifiable Delay Functions</h2></a>
+<p>A Verifiable Delay Function is conceptually a water clock where its water marks
+can be recorded and later verified that the water most certainly passed
+through.  Anatoly describes the water clock analogy in detail here:</p>
+<p><a href="https://medium.com/solana-labs/proof-of-history-explained-by-a-water-clock-e682183417b8">water clock
+analogy</a></p>
+<p>The same technique has been used in Bitcoin since day one. The Bitcoin feature
+is called nLocktime and it can be used to postdate transactions using block
+height instead of a timestamp. As a Bitcoin client, you'd use block height
+instead of a timestamp if you don't trust the network. Block height turns out
+to be an instance of what's being called a Verifiable Delay Function in
+cryptography circles. It's a cryptographically secure way to say time has
+passed. In Solana, we use a far more granular verifiable delay function, a SHA
+256 hash chain, to checkpoint the ledger and coordinate consensus. With it, we
+implement Optimistic Concurrency Control and are now well en route towards that
+theoretical limit of 710,000 transactions per second.</p>
+<a class="header" href="#proof-of-history" id="proof-of-history"><h2>Proof of History</h2></a>
+<p><a href="https://medium.com/solana-labs/proof-of-history-a-clock-for-blockchain-cf47a61a9274">Proof of History
+overview</a></p>
+<a class="header" href="#relationship-to-consensus-mechanisms" id="relationship-to-consensus-mechanisms"><h3>Relationship to Consensus Mechanisms</h3></a>
+<p>Most confusingly, a Proof of History (PoH) is more similar to a Verifiable
+Delay Function (VDF) than a Proof of Work or Proof of Stake consensus
+mechanism. The name unfortunately requires some historical context to
+understand. Proof of History was developed by Anatoly Yakovenko in November of
+2017, roughly 6 months before we saw a <a href="https://eprint.iacr.org/2018/601.pdf">paper using the term
+VDF</a>. At that time, it was commonplace to
+publish new proofs of some desirable property used to build most any blockchain
+component. Some time shortly after, the crypto community began charting out all
+the different consensus mechanisms and because most of them started with &quot;Proof
+of&quot;, the prefix became synonymous with a &quot;consensus&quot; suffix. Proof of History
+is not a consensus mechanism, but it is used to improve the performance of
+Solana's Proof of Stake consensus. It is also used to improve the performance
+of the replication and storage protocols. To minimize confusion, Solana may
+rebrand PoH to some flavor of the term VDF.</p>
+<a class="header" href="#relationship-to-vdfs" id="relationship-to-vdfs"><h3>Relationship to VDFs</h3></a>
+<p>A desirable property of a VDF is that verification time is very fast. Solana's
+approach to verifying its delay function is proportional to the time it took to
+create it. Split over a 4000 core GPU, it is sufficiently fast for Solana's
+needs, but if you asked the authors the paper cited above, they might tell you
+(<a href="https://github.com/solana-labs/solana/issues/388">and have</a>) that Solana's
+approach is algorithmically slow it shouldn't be called a VDF. We argue the
+term VDF should represent the category of verifiable delay functions and not
+just the subset with certain performance characteristics. Until that's
+resolved, Solana will likely continue using the term PoH for its
+application-specific VDF.</p>
+<p>Another difference between PoH and VDFs used only for tracking duration, is
+that PoH's hash chain includes hashes of any data the application observed.
+That data is a double-edged sword. On one side, the data &quot;proves history&quot; -
+that the data most certainly existed before hashes after it. On the side, it
+means the application can manipulate the hash chain by changing <em>when</em> the data
+is hashed. The PoH chain therefore does not serve as a good source of
+randomness whereas a VDF without that data could. Solana's <a href="#leader-rotation">leader rotation
+algorithm</a>, for example, is derived only from the VDF
+<em>height</em> and not its hash at that height.</p>
+<a class="header" href="#leader-rotation" id="leader-rotation"><h1>Leader Rotation</h1></a>
+<p>A property of any permissionless blockchain is that the entity choosing the next block is randomly selected. In proof of stake systems,
+that entity is typically called the &quot;leader&quot; or &quot;block producer.&quot; In Solana, we call it the leader. Under the hood, a leader is
+simply a mode of the fullnode. A fullnode runs as either a leader or validator. In this chapter, we describe how a fullnode determines
+what node is the leader, how that mechanism may choose different leaders at the same time, and if so, how the system converges in response.</p>
+<a class="header" href="#leader-seed-generation" id="leader-seed-generation"><h2>Leader Seed Generation</h2></a>
+<p>Leader scheduling is decided via a random seed.  The process is as follows:</p>
+<ol>
+<li>Periodically, at a specific PoH tick count, select the signatures of the votes that made up the last supermajority</li>
+<li>Concatenate the signatures</li>
+<li>Hash the resulting string for <code>N</code> counts</li>
+<li>The resulting hash is the random seed for <code>M</code> counts, <code>M</code> leader slots, where M &gt; N</li>
+</ol>
+<a class="header" href="#leader-rotation-1" id="leader-rotation-1"><h2>Leader Rotation</h2></a>
+<ol>
+<li>The leader is chosen via a random seed generated from stake weights and votes (the leader schedule)</li>
+<li>The leader is rotated every <code>T</code> PoH ticks (leader slot), according to the leader schedule</li>
+<li>The schedule is applicable for <code>M</code> voting rounds</li>
+</ol>
+<p>Leader's transmit for a count of <code>T</code> PoH ticks.  When <code>T</code> is reached all the validators should switch to the next scheduled leader.  To schedule leaders, the supermajority + <code>M</code> nodes are shuffled using the above calculated random seed.</p>
+<p>All <code>T</code> ticks must be observed from the current leader for that part of PoH to be accepted by the network.  If <code>T</code> ticks (and any intervening transactions) are not observed, the network optimistically fills in the <code>T</code> ticks, and continues with PoH from the next leader.</p>
+<a class="header" href="#partitions-forks" id="partitions-forks"><h2>Partitions, Forks</h2></a>
+<p>Forks can arise at PoH tick counts that correspond to leader rotations, because leader nodes may or may not have observed the previous leader's data.  These empty ticks are generated by all nodes in the network at a network-specified rate for hashes-per-tick <code>Z</code>.</p>
+<p>There are only two possible versions of the PoH during a voting round: PoH with <code>T</code> ticks and entries generated by the current leader, or PoH with just ticks.  The &quot;just ticks&quot; version of the PoH can be thought of as a virtual ledger, one that all nodes in the network can derive from the last tick in the previous slot.</p>
+<p>Validators can ignore forks at other points (e.g. from the wrong leader), or slash the leader responsible for the fork.</p>
+<p>Validators vote on the longest chain that contains their previous vote, or a longer chain if the lockout on their previous vote has expired.</p>
+<a class="header" href="#validators-view" id="validators-view"><h4>Validator's View</h4></a>
+<a class="header" href="#time-progression" id="time-progression"><h5>Time Progression</h5></a>
+<p>The diagram below represents a validator's view of the PoH stream with possible forks over time.  L1, L2, etc. are leader slots, and <code>E</code>s represent entries from that leader during that leader's slot.  The <code>x</code>s represent ticks only, and time flows downwards in the diagram.</p>
+<p><img alt="Leader scheduler" src="img/leader-scheduler.svg" class="center"/></p>
+<p>Note that an <code>E</code> appearing on 2 branches at the same slot is a slashable condition, so a validator observing <code>L3</code> and <code>L3'</code> can slash L3 and safely choose <code>x</code> for that slot.  Once a validator observes a supermajority vote on any branch, other branches can be discarded below that tick count.  For any slot, validators need only consider a single &quot;has entries&quot; chain or a &quot;ticks only&quot; chain.</p>
+<a class="header" href="#time-division" id="time-division"><h5>Time Division</h5></a>
+<p>It's useful to consider leader rotation over PoH tick count as time division of the job of encoding state for the network.  The following table presents the above tree of forks as a time-divided ledger.</p>
+<table><thead><tr><th>leader slot </th><th>  L1 </th><th> L2 </th><th> L3 </th><th> L4 </th><th> L5</th></tr></thead><tbody>
+<tr><td>data      </td><td>  E1</td><td> E2 </td><td> E3 </td><td> E4  </td><td> E5</td></tr>
+<tr><td>ticks since prev  </td><td> </td><td> </td><td> </td><td> x </td><td> xx</td></tr>
+</tbody></table>
+<p>Note that only data from leader <code>L3</code> will be accepted during leader slot
+<code>L3</code>.  Data from <code>L3</code> may include &quot;catchup&quot; ticks back to a slot other than
+<code>L2</code> if <code>L3</code> did not observe <code>L2</code>'s data.  <code>L4</code> and <code>L5</code>'s transmissions
+include the &quot;ticks since prev&quot; PoH entries.</p>
+<p>This arrangement of the network data streams permits nodes to save exactly this
+to the ledger for replay, restart, and checkpoints.</p>
+<a class="header" href="#leaders-view" id="leaders-view"><h4>Leader's View</h4></a>
+<p>When a new leader begins a slot, it must first transmit any PoH (ticks)
+required to link the new slot with the most recently observed and voted
+slot.</p>
+<a class="header" href="#examples" id="examples"><h2>Examples</h2></a>
+<a class="header" href="#small-partition" id="small-partition"><h3>Small Partition</h3></a>
+<ol>
+<li>Network partition <code>M</code> occurs for 10% of the nodes</li>
+<li>The larger partition <code>K</code>, with 90% of the stake weight continues to operate as
+normal</li>
+<li><code>M</code> cycles through the ranks until one of them is leader, generating ticks for
+slots where the leader is in <code>K</code>.</li>
+<li><code>M</code> validators observe 10% of the vote pool, confirmation is not reached.</li>
+<li><code>M</code> and <code>K</code> reconnect.</li>
+<li><code>M</code> validators cancel their votes on <code>M</code>, which has not reached confirmation, and
+re-cast on <code>K</code> (after their vote lockout on <code>M</code>).</li>
+</ol>
+<a class="header" href="#leader-timeout" id="leader-timeout"><h3>Leader Timeout</h3></a>
+<ol>
+<li>Next rank leader node <code>V</code> observes a timeout from current leader <code>A</code>, fills in
+<code>A</code>'s slot with virtual ticks and starts sending out entries.</li>
+<li>Nodes observing both streams keep track of the forks, waiting for:
+<ul>
+<li>their vote on leader <code>A</code> to expire in order to be able to vote on <code>B</code></li>
+<li>a supermajority on <code>A</code>'s slot</li>
+</ul>
+</li>
+<li>If the first case occurs, leader <code>B</code>'s slot is filled with ticks. if the
+second case occurs, A's slot is filled with ticks</li>
+<li>Partition is resolved just like in the <a href="#small-parition">Small Partition</a>
+above</li>
+</ol>
+<a class="header" href="#network-variables" id="network-variables"><h2>Network Variables</h2></a>
+<p><code>A</code> - name of a node</p>
+<p><code>B</code> - name of a node</p>
+<p><code>K</code> - number of nodes in the supermajority to whom leaders broadcast their
+PoH hash for validation</p>
+<p><code>M</code> - number of nodes outside the supermajority to whom leaders broadcast their
+PoH hash for validation</p>
+<p><code>N</code> - number of voting rounds for which a leader schedule is considered before
+a new leader schedule is used</p>
+<p><code>T</code> - number of PoH ticks per leader slot (also voting round)</p>
+<p><code>V</code> - name of a node that will create virtual ticks</p>
+<p><code>Z</code> - number of hashes per PoH tick</p>
+<a class="header" href="#ledger-replication" id="ledger-replication"><h1>Ledger Replication</h1></a>
+<a class="header" href="#anatomy-of-a-fullnode" id="anatomy-of-a-fullnode"><h1>Anatomy of a Fullnode</h1></a>
+<p><img alt="Fullnode block diagrams" src="img/fullnode.svg" class="center"/></p>
+<a class="header" href="#pipelining" id="pipelining"><h2>Pipelining</h2></a>
+<p>The fullnodes make extensive use of an optimization common in CPU design,
+called <em>pipelining</em>.  Pipelining is the right tool for the job when there's a
+stream of input data that needs to be processed by a sequence of steps, and
+there's different hardware responsible for each. The quintessential example is
+using a washer and dryer to wash/dry/fold several loads of laundry. Washing
+must occur before drying and drying before folding, but each of the three
+operations is performed by a separate unit. To maximize efficiency, one creates
+a pipeline of <em>stages</em>. We'll call the washer one stage, the dryer another, and
+the folding process a third. To run the pipeline, one adds a second load of
+laundry to the washer just after the first load is added to the dryer.
+Likewise, the third load is added to the washer after the second is in the
+dryer and the first is being folded. In this way, one can make progress on
+three loads of laundry simultaneously. Given infinite loads, the pipeline will
+consistently complete a load at the rate of the slowest stage in the pipeline.</p>
+<a class="header" href="#pipelining-in-the-fullnode" id="pipelining-in-the-fullnode"><h2>Pipelining in the Fullnode</h2></a>
+<p>The fullnode contains two pipelined processes, one used in leader mode called
+the Tpu and one used in validator mode called the Tvu. In both cases, the
+hardware being pipelined is the same, the network input, the GPU cards, the CPU
+cores, writes to disk, and the network output.  What it does with that hardware
+is different.  The Tpu exists to create ledger entries whereas the Tvu exists
+to validate them.</p>
+<a class="header" href="#the-transaction-processing-unit" id="the-transaction-processing-unit"><h1>The Transaction Processing Unit</h1></a>
+<p><img alt="TPU Block Diagram" src="img/tpu.svg" class="center"/></p>
+<a class="header" href="#the-transaction-validation-unit" id="the-transaction-validation-unit"><h1>The Transaction Validation Unit</h1></a>
+<p><img alt="TVU Block Diagram" src="img/tvu.svg" class="center"/></p>
+<a class="header" href="#the-gossip-service" id="the-gossip-service"><h1>The Gossip Service</h1></a>
+<p>The Gossip Service acts as a gateway to nodes in the control plane. Fullnodes
+use the service to ensure information is available to all other nodes in a cluster.
+The service broadcasts information using a gossip protocol.</p>
+<a class="header" href="#gossip-overview" id="gossip-overview"><h2>Gossip Overview</h2></a>
+<p>Nodes continuously share signed data objects among themselves in order to
+manage a cluster. For example, they share their contact information, ledger
+height, and votes.</p>
+<p>Every tenth of a second, each node sends a &quot;push&quot; message and/or a &quot;pull&quot;
+message.  Push and pull messages may elicit responses, and push messages may be
+forwarded on to others in the cluster.</p>
+<p>Gossip runs on a well-known UDP/IP port or a port in a well-known range.  Once
+a cluster is bootstrapped, nodes advertise to each other where to find their
+gossip endpoint (a socket address).</p>
+<a class="header" href="#gossip-records" id="gossip-records"><h2>Gossip Records</h2></a>
+<p>Records shared over gossip are arbitrary, but signed and versioned (with a
+timestamp) as needed to make sense to the node receiving them. If a node
+recieves two records from the same source, it it updates its own copy with the
+record with the most recent timestamp.</p>
+<a class="header" href="#gossip-service-interface" id="gossip-service-interface"><h2>Gossip Service Interface</h2></a>
+<a class="header" href="#push-message" id="push-message"><h3>Push Message</h3></a>
+<p>A node sends a push message to tells the cluster it has information to share.
+Nodes send push messages to <code>PUSH_FANOUT</code> push peers.</p>
+<p>Upon receiving a push message, a node examines the message for:</p>
+<ol>
+<li>
+<p>Duplication: if the message has been seen before, the node responds with
+<code>PushMessagePrune</code> and drops the message</p>
+</li>
+<li>
+<p>New information: if the message is new the node</p>
+<p>a. Stores the new information and updates its version</p>
+<p>b. Stores the message in <code>pushed_once</code> (used for detecting duplicates,
+purged after <code>PUSH_MSG_TIMEOUT * 5</code> ms)</p>
+<p>c. Retransmits the messages to its own push peers</p>
+</li>
+<li>
+<p>Expiration: nodes drop push messages that are older than <code>PUSH_MSG_TIMEOUT</code></p>
+</li>
+</ol>
+<a class="header" href="#push-peers-prune-message" id="push-peers-prune-message"><h3>Push Peers, Prune Message</h3></a>
+<p>A nodes selects its push peers at random from the active set of known peers.
+The node keeps this selection for a relatively long time.  When a prune message
+is received, the node drops the push peer that sent the prune.  Prune is an
+indication that there is another, faster path to that node than direct push.</p>
+<p>The set of push peers is kept fresh by rotating a new node into the set every
+<code>PUSH_MSG_TIMEOUT/2</code> milliseconds.</p>
+<a class="header" href="#pull-message" id="pull-message"><h3>Pull Message</h3></a>
+<p>A node sends a pull message to ask the cluster if there is any new information.
+A pull message is sent to a single peer at random and comprises a Bloom filter
+that represents things it already has.  A node receiving a pull message
+iterates over its values and constructs a pull response of things that miss the
+filter and would fit in a message.</p>
+<p>A node constructs the pull Bloom filter by iterating over the values it
+currently has.</p>
+<a class="header" href="#runtime-1" id="runtime-1"><h1>Runtime</h1></a>
+<p>The runtime is a concurrent transaction processor. Transactions specify their
+data dependencies upfront and dynamic memory allocation is explicit. By
+separating program code from the state it operates on, the runtime is able to
+choreograph concurrent access. Transactions accessing only credit-only
+accounts are executed in parallel whereas transactions accessing writable
+accounts are serialized.  The runtime interacts with the program through an
+entrypoint with a well-defined interface.  The userdata stored in an account is
+an opaque type, an array of bytes. The program has full control over its
+contents.</p>
+<p>The transaction structure specifies a list of public keys and signatures for
+those keys and a sequential list of instructions that will operate over the
+states associated with the account keys.  For the transaction to be committed
+all the instructions must execute successfully; if any abort the whole
+transaction fails to commit.</p>
+<a class="header" href="#account-structure" id="account-structure"><h3>Account Structure</h3></a>
+<p>Accounts maintain a token balance and program-specific memory.</p>
+<a class="header" href="#transaction-engine" id="transaction-engine"><h1>Transaction Engine</h1></a>
+<p>The engine maps public keys to accounts and routes them to the program's
+entrypoint.</p>
+<a class="header" href="#execution" id="execution"><h2>Execution</h2></a>
+<p>Transactions are batched and processed in a pipeline</p>
+<p><img alt="Runtime pipeline" src="img/runtime.svg" class="center"/></p>
+<p>At the <em>execute</em> stage, the loaded pages have no data dependencies, so all the
+programs can be executed in parallel.</p>
+<p>The runtime enforces the following rules:</p>
+<ol>
+<li>Only the <em>owner</em> program may modify the contents of an account.  This means
+that upon assignment userdata vector is guaranteed to be zero.</li>
+<li>Total balances on all the accounts is equal before and after execution of a
+transaction.</li>
+<li>After the transaction is executed, balances of credit-only accounts must be
+greater than or equal to the balances before the transaction.</li>
+<li>All instructions in the transaction executed atomically. If one fails, all
+account modifications are discarded.</li>
+</ol>
+<p>Execution of the program involves mapping the program's public key to an
+entrypoint which takes a pointer to the transaction, and an array of loaded
+pages.</p>
+<a class="header" href="#systemprogram-interface" id="systemprogram-interface"><h2>SystemProgram Interface</h2></a>
+<p>The interface is best described by the <code>Instruction::userdata</code> that the user
+encodes.</p>
+<ul>
+<li><code>CreateAccount</code> - This allows the user to create and assign an account to a
+Program.</li>
+<li><code>Assign</code> - allows the user to assign an existing account to a program.</li>
+<li><code>Move</code>  - moves tokens between account's that are associated with</li>
+<li><code>Spawn</code> - spawn a new program from an account</li>
+</ul>
+<a class="header" href="#notes" id="notes"><h2>Notes</h2></a>
+<ol>
+<li>There is no dynamic memory allocation.  Client's need to use <code>CreateAccount</code>
+instructions to create memory before passing it to another program.  This
+instruction can be composed into a single transaction with the call to the
+program itself.</li>
+<li>Runtime guarantees that when memory is assigned to the program it is zero
+initialized.</li>
+<li>Runtime guarantees that a program's code is the only thing that can modify
+memory that its assigned to</li>
+<li>Runtime guarantees that the program can only spend tokens that are in
+accounts that are assigned to it</li>
+<li>Runtime guarantees the balances belonging to accounts are balanced before
+and after the transaction</li>
+<li>Runtime guarantees that multiple instructions all executed successfully when
+a transaction is committed.</li>
+</ol>
+<a class="header" href="#future-work" id="future-work"><h1>Future Work</h1></a>
+<ul>
+<li><a href="https://github.com/solana-labs/solana/issues/1485">Continuations and Signals for long running
+Transactions</a></li>
+</ul>
+<a class="header" href="#appendix" id="appendix"><h1>Appendix</h1></a>
+<p>The following sections contain reference material you may find useful in your
+Solana journey.</p>
+<a class="header" href="#json-rpc-api" id="json-rpc-api"><h1>JSON RPC API</h1></a>
+<p>Solana nodes accept HTTP requests using the <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0</a> specification.</p>
+<p>To interact with a Solana node inside a JavaScript application, use the <a href="https://github.com/solana-labs/solana-web3.js">solana-web3.js</a> library, which gives a convenient interface for the RPC methods.</p>
+<a class="header" href="#rpc-http-endpoint" id="rpc-http-endpoint"><h2>RPC HTTP Endpoint</h2></a>
+<p><strong>Default port:</strong> 8899
+eg. http://localhost:8899, http://192.168.1.88:8899</p>
+<a class="header" href="#rpc-pubsub-websocket-endpoint" id="rpc-pubsub-websocket-endpoint"><h2>RPC PubSub WebSocket Endpoint</h2></a>
+<p><strong>Default port:</strong> 8900
+eg. ws://localhost:8900, http://192.168.1.88:8900</p>
+<a class="header" href="#methods" id="methods"><h2>Methods</h2></a>
+<ul>
+<li>
+<p><a href="#confirmtransaction">confirmTransaction</a></p>
+</li>
+<li>
+<p><a href="#getbalance">getBalance</a></p>
+</li>
+<li>
+<p><a href="#getaccountinfo">getAccountInfo</a></p>
+</li>
+<li>
+<p><a href="#getlastid">getLastId</a></p>
+</li>
+<li>
+<p><a href="#getsignaturestatus">getSignatureStatus</a></p>
+</li>
+<li>
+<p><a href="#gettransactioncount">getTransactionCount</a></p>
+</li>
+<li>
+<p><a href="#requestairdrop">requestAirdrop</a></p>
+</li>
+<li>
+<p><a href="#sendtransaction">sendTransaction</a></p>
+</li>
+<li>
+<p><a href="#startsubscriptionchannel">startSubscriptionChannel</a></p>
+</li>
+<li>
+<p><a href="#subscription-websocket">Subscription Websocket</a></p>
+<ul>
+<li><a href="#accountsubscribe">accountSubscribe</a></li>
+<li><a href="#accountunsubscribe">accountUnsubscribe</a></li>
+<li><a href="#signaturesubscribe">signatureSubscribe</a></li>
+<li><a href="#signatureunsubscribe">signatureUnsubscribe</a></li>
+</ul>
+</li>
+</ul>
+<a class="header" href="#request-formatting" id="request-formatting"><h2>Request Formatting</h2></a>
+<p>To make a JSON-RPC request, send an HTTP POST request with a <code>Content-Type: application/json</code> header. The JSON request data should contain 4 fields:</p>
+<ul>
+<li><code>jsonrpc</code>, set to <code>&quot;2.0&quot;</code></li>
+<li><code>id</code>, a unique client-generated identifying integer</li>
+<li><code>method</code>, a string containing the method to be invoked</li>
+<li><code>params</code>, a JSON array of ordered parameter values</li>
+</ul>
+<p>Example using curl:</p>
+<pre><code class="language-bash">curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;id&quot;:1, &quot;method&quot;:&quot;getBalance&quot;, &quot;params&quot;:[&quot;83astBRguLMdt2h5U1Tpdq5tjFoJ6noeGwaY3mDLVcri&quot;]}' 192.168.1.88:8899
+</code></pre>
+<p>The response output will be a JSON object with the following fields:</p>
+<ul>
+<li><code>jsonrpc</code>, matching the request specification</li>
+<li><code>id</code>, matching the request identifier</li>
+<li><code>result</code>, requested data or success confirmation</li>
+</ul>
+<p>Requests can be sent in batches by sending an array of JSON-RPC request objects as the data for a single POST.</p>
+<a class="header" href="#definitions" id="definitions"><h2>Definitions</h2></a>
+<ul>
+<li>Hash: A SHA-256 hash of a chunk of data.</li>
+<li>Pubkey: The public key of a Ed25519 key-pair.</li>
+<li>Signature: An Ed25519 signature of a chunk of data.</li>
+<li>Transaction: A Solana instruction signed by a client key-pair.</li>
+</ul>
+<a class="header" href="#json-rpc-api-reference" id="json-rpc-api-reference"><h2>JSON RPC API Reference</h2></a>
+<a class="header" href="#confirmtransaction" id="confirmtransaction"><h3>confirmTransaction</h3></a>
+<p>Returns a transaction receipt</p>
+<a class="header" href="#parameters" id="parameters"><h5>Parameters:</h5></a>
+<ul>
+<li><code>string</code> - Signature of Transaction to confirm, as base-58 encoded string</li>
+</ul>
+<a class="header" href="#results" id="results"><h5>Results:</h5></a>
+<ul>
+<li><code>boolean</code> - Transaction status, true if Transaction is confirmed</li>
+</ul>
+<a class="header" href="#example" id="example"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;id&quot;:1, &quot;method&quot;:&quot;confirmTransaction&quot;, &quot;params&quot;:[&quot;5VERv8NMvzbJMEkV8xnrLkEaWRtSz9CosKDYjCJjBRnbJLgp8uirBgmQpjKhoR4tjF3ZpRzrFmBV6UjKdiSZkQUW&quot;]}' http://localhost:8899
+
+// Result
+{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:true,&quot;id&quot;:1}
+</code></pre>
+<hr />
+<a class="header" href="#getbalance" id="getbalance"><h3>getBalance</h3></a>
+<p>Returns the balance of the account of provided Pubkey</p>
+<a class="header" href="#parameters-1" id="parameters-1"><h5>Parameters:</h5></a>
+<ul>
+<li><code>string</code> - Pubkey of account to query, as base-58 encoded string</li>
+</ul>
+<a class="header" href="#results-1" id="results-1"><h5>Results:</h5></a>
+<ul>
+<li><code>integer</code> - quantity, as a signed 64-bit integer</li>
+</ul>
+<a class="header" href="#example-1" id="example-1"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;id&quot;:1, &quot;method&quot;:&quot;getBalance&quot;, &quot;params&quot;:[&quot;83astBRguLMdt2h5U1Tpdq5tjFoJ6noeGwaY3mDLVcri&quot;]}' http://localhost:8899
+
+// Result
+{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:0,&quot;id&quot;:1}
+</code></pre>
+<hr />
+<a class="header" href="#getaccountinfo" id="getaccountinfo"><h3>getAccountInfo</h3></a>
+<p>Returns all information associated with the account of provided Pubkey</p>
+<a class="header" href="#parameters-2" id="parameters-2"><h5>Parameters:</h5></a>
+<ul>
+<li><code>string</code> - Pubkey of account to query, as base-58 encoded string</li>
+</ul>
+<a class="header" href="#results-2" id="results-2"><h5>Results:</h5></a>
+<p>The result field will be a JSON object with the following sub fields:</p>
+<ul>
+<li><code>tokens</code>, number of tokens assigned to this account, as a signed 64-bit integer</li>
+<li><code>owner</code>, array of 32 bytes representing the program this account has been assigned to</li>
+<li><code>userdata</code>, array of bytes representing any userdata associated with the account</li>
+<li><code>executable</code>, boolean indicating if the account contains a program (and is strictly read-only)</li>
+<li><code>loader</code>, array of 32 bytes representing the loader for this program (if <code>executable</code>), otherwise all</li>
+</ul>
+<a class="header" href="#example-2" id="example-2"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;id&quot;:1, &quot;method&quot;:&quot;getAccountInfo&quot;, &quot;params&quot;:[&quot;2gVkYWexTHR5Hb2aLeQN3tnngvWzisFKXDUPrgMHpdST&quot;]}' http://localhost:8899
+
+// Result
+{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:{&quot;executable&quot;:false,&quot;loader&quot;:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],&quot;owner&quot;:[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],&quot;tokens&quot;:1,&quot;userdata&quot;:[3,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,50,48,53,48,45,48,49,45,48,49,84,48,48,58,48,48,58,48,48,90,252,10,7,28,246,140,88,177,98,82,10,227,89,81,18,30,194,101,199,16,11,73,133,20,246,62,114,39,20,113,189,32,50,0,0,0,0,0,0,0,247,15,36,102,167,83,225,42,133,127,82,34,36,224,207,130,109,230,224,188,163,33,213,13,5,117,211,251,65,159,197,51,0,0,0,0,0,0]},&quot;id&quot;:1}
+</code></pre>
+<hr />
+<a class="header" href="#getlastid" id="getlastid"><h3>getLastId</h3></a>
+<p>Returns the last entry ID from the ledger</p>
+<a class="header" href="#parameters-3" id="parameters-3"><h5>Parameters:</h5></a>
+<p>None</p>
+<a class="header" href="#results-3" id="results-3"><h5>Results:</h5></a>
+<ul>
+<li><code>string</code> - the ID of last entry, a Hash as base-58 encoded string</li>
+</ul>
+<a class="header" href="#example-3" id="example-3"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1, &quot;method&quot;:&quot;getLastId&quot;}' http://localhost:8899
+
+// Result
+{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;GH7ome3EiwEr7tu9JuTh2dpYWBJK3z69Xm1ZE3MEE6JC&quot;,&quot;id&quot;:1}
+</code></pre>
+<hr />
+<a class="header" href="#getsignaturestatus" id="getsignaturestatus"><h3>getSignatureStatus</h3></a>
+<p>Returns the status of a given signature.  This method is similar to
+<a href="#confirmtransaction">confirmTransaction</a> but provides more resolution for error
+events.</p>
+<a class="header" href="#parameters-4" id="parameters-4"><h5>Parameters:</h5></a>
+<ul>
+<li><code>string</code> - Signature of Transaction to confirm, as base-58 encoded string</li>
+</ul>
+<a class="header" href="#results-4" id="results-4"><h5>Results:</h5></a>
+<ul>
+<li><code>string</code> - Transaction status:
+<ul>
+<li><code>Confirmed</code> - Transaction was successful</li>
+<li><code>SignatureNotFound</code> - Unknown transaction</li>
+<li><code>ProgramRuntimeError</code> - An error occurred in the program that processed this Transaction</li>
+<li><code>AccountInUse</code> - Another Transaction had a write lock one of the Accounts specified in this Transaction.  The Transaction may succeed if retried</li>
+<li><code>GenericFailure</code> - Some other error occurred.  <strong>Note</strong>: In the future new Transaction statuses may be added to this list.  It's safe to assume that all new statuses will be more specific error conditions that previously presented as <code>GenericFailure</code></li>
+</ul>
+</li>
+</ul>
+<a class="header" href="#example-4" id="example-4"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;id&quot;:1, &quot;method&quot;:&quot;getSignatureStatus&quot;, &quot;params&quot;:[&quot;5VERv8NMvzbJMEkV8xnrLkEaWRtSz9CosKDYjCJjBRnbJLgp8uirBgmQpjKhoR4tjF3ZpRzrFmBV6UjKdiSZkQUW&quot;]}' http://localhost:8899
+
+// Result
+{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;SignatureNotFound&quot;,&quot;id&quot;:1}
+</code></pre>
+<hr />
+<a class="header" href="#gettransactioncount" id="gettransactioncount"><h3>getTransactionCount</h3></a>
+<p>Returns the current Transaction count from the ledger</p>
+<a class="header" href="#parameters-5" id="parameters-5"><h5>Parameters:</h5></a>
+<p>None</p>
+<a class="header" href="#results-5" id="results-5"><h5>Results:</h5></a>
+<ul>
+<li><code>integer</code> - count, as unsigned 64-bit integer</li>
+</ul>
+<a class="header" href="#example-5" id="example-5"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1, &quot;method&quot;:&quot;getTransactionCount&quot;}' http://localhost:8899
+
+// Result
+{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:268,&quot;id&quot;:1}
+</code></pre>
+<hr />
+<a class="header" href="#requestairdrop" id="requestairdrop"><h3>requestAirdrop</h3></a>
+<p>Requests an airdrop of tokens to a Pubkey</p>
+<a class="header" href="#parameters-6" id="parameters-6"><h5>Parameters:</h5></a>
+<ul>
+<li><code>string</code> - Pubkey of account to receive tokens, as base-58 encoded string</li>
+<li><code>integer</code> - token quantity, as a signed 64-bit integer</li>
+</ul>
+<a class="header" href="#results-6" id="results-6"><h5>Results:</h5></a>
+<ul>
+<li><code>string</code> - Transaction Signature of airdrop, as base-58 encoded string</li>
+</ul>
+<a class="header" href="#example-6" id="example-6"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1, &quot;method&quot;:&quot;requestAirdrop&quot;, &quot;params&quot;:[&quot;83astBRguLMdt2h5U1Tpdq5tjFoJ6noeGwaY3mDLVcri&quot;, 50]}' http://localhost:8899
+
+// Result
+{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;5VERv8NMvzbJMEkV8xnrLkEaWRtSz9CosKDYjCJjBRnbJLgp8uirBgmQpjKhoR4tjF3ZpRzrFmBV6UjKdiSZkQUW&quot;,&quot;id&quot;:1}
+</code></pre>
+<hr />
+<a class="header" href="#sendtransaction" id="sendtransaction"><h3>sendTransaction</h3></a>
+<p>Creates new transaction</p>
+<a class="header" href="#parameters-7" id="parameters-7"><h5>Parameters:</h5></a>
+<ul>
+<li><code>array</code> - array of octets containing a fully-signed Transaction</li>
+</ul>
+<a class="header" href="#results-7" id="results-7"><h5>Results:</h5></a>
+<ul>
+<li><code>string</code> - Transaction Signature, as base-58 encoded string</li>
+</ul>
+<a class="header" href="#example-7" id="example-7"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1, &quot;method&quot;:&quot;sendTransaction&quot;, &quot;params&quot;:[[61, 98, 55, 49, 15, 187, 41, 215, 176, 49, 234, 229, 228, 77, 129, 221, 239, 88, 145, 227, 81, 158, 223, 123, 14, 229, 235, 247, 191, 115, 199, 71, 121, 17, 32, 67, 63, 209, 239, 160, 161, 2, 94, 105, 48, 159, 235, 235, 93, 98, 172, 97, 63, 197, 160, 164, 192, 20, 92, 111, 57, 145, 251, 6, 40, 240, 124, 194, 149, 155, 16, 138, 31, 113, 119, 101, 212, 128, 103, 78, 191, 80, 182, 234, 216, 21, 121, 243, 35, 100, 122, 68, 47, 57, 13, 39, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 40, 240, 124, 194, 149, 155, 16, 138, 31, 113, 119, 101, 212, 128, 103, 78, 191, 80, 182, 234, 216, 21, 121, 243, 35, 100, 122, 68, 47, 57, 11, 12, 106, 49, 74, 226, 201, 16, 161, 192, 28, 84, 124, 97, 190, 201, 171, 186, 6, 18, 70, 142, 89, 185, 176, 154, 115, 61, 26, 163, 77, 1, 88, 98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]}' http://localhost:8899
+
+// Result
+{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;2EBVM6cB8vAAD93Ktr6Vd8p67XPbQzCJX47MpReuiCXJAtcjaxpvWpcg9Ege1Nr5Tk3a2GFrByT7WPBjdsTycY9b&quot;,&quot;id&quot;:1}
+</code></pre>
+<hr />
+<a class="header" href="#subscription-websocket" id="subscription-websocket"><h3>Subscription Websocket</h3></a>
+<p>After connect to the RPC PubSub websocket at <code>ws://&lt;ADDRESS&gt;/</code>:</p>
+<ul>
+<li>Submit subscription requests to the websocket using the methods below</li>
+<li>Multiple subscriptions may be active at once</li>
+</ul>
+<hr />
+<a class="header" href="#accountsubscribe" id="accountsubscribe"><h3>accountSubscribe</h3></a>
+<p>Subscribe to an account to receive notifications when the userdata for a given account public key changes</p>
+<a class="header" href="#parameters-8" id="parameters-8"><h5>Parameters:</h5></a>
+<ul>
+<li><code>string</code> - account Pubkey, as base-58 encoded string</li>
+</ul>
+<a class="header" href="#results-8" id="results-8"><h5>Results:</h5></a>
+<ul>
+<li><code>integer</code> - Subscription id (needed to unsubscribe)</li>
+</ul>
+<a class="header" href="#example-8" id="example-8"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+{&quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;id&quot;:1, &quot;method&quot;:&quot;accountSubscribe&quot;, &quot;params&quot;:[&quot;CM78CPUeXjn8o3yroDHxUtKsZZgoy4GPkPPXfouKNH12&quot;]}
+
+// Result
+{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;result&quot;: 0,&quot;id&quot;: 1}
+</code></pre>
+<a class="header" href="#notification-format" id="notification-format"><h5>Notification Format:</h5></a>
+<pre><code class="language-bash">{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;method&quot;: &quot;accountNotification&quot;, &quot;params&quot;: {&quot;result&quot;: {&quot;executable&quot;:false,&quot;loader&quot;:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],&quot;owner&quot;:[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],&quot;tokens&quot;:1,&quot;userdata&quot;:[3,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,50,48,53,48,45,48,49,45,48,49,84,48,48,58,48,48,58,48,48,90,252,10,7,28,246,140,88,177,98,82,10,227,89,81,18,30,194,101,199,16,11,73,133,20,246,62,114,39,20,113,189,32,50,0,0,0,0,0,0,0,247,15,36,102,167,83,225,42,133,127,82,34,36,224,207,130,109,230,224,188,163,33,213,13,5,117,211,251,65,159,197,51,0,0,0,0,0,0]},&quot;subscription&quot;:0}}
+</code></pre>
+<hr />
+<a class="header" href="#accountunsubscribe" id="accountunsubscribe"><h3>accountUnsubscribe</h3></a>
+<p>Unsubscribe from account userdata change notifications</p>
+<a class="header" href="#parameters-9" id="parameters-9"><h5>Parameters:</h5></a>
+<ul>
+<li><code>integer</code> - id of account Subscription to cancel</li>
+</ul>
+<a class="header" href="#results-9" id="results-9"><h5>Results:</h5></a>
+<ul>
+<li><code>bool</code> - unsubscribe success message</li>
+</ul>
+<a class="header" href="#example-9" id="example-9"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+{&quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;id&quot;:1, &quot;method&quot;:&quot;accountUnsubscribe&quot;, &quot;params&quot;:[0]}
+
+// Result
+{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;result&quot;: true,&quot;id&quot;: 1}
+</code></pre>
+<hr />
+<a class="header" href="#signaturesubscribe" id="signaturesubscribe"><h3>signatureSubscribe</h3></a>
+<p>Subscribe to a transaction signature to receive notification when the transaction is confirmed
+On <code>signatureNotification</code>, the subscription is automatically cancelled</p>
+<a class="header" href="#parameters-10" id="parameters-10"><h5>Parameters:</h5></a>
+<ul>
+<li><code>string</code> - Transaction Signature, as base-58 encoded string</li>
+</ul>
+<a class="header" href="#results-10" id="results-10"><h5>Results:</h5></a>
+<ul>
+<li><code>integer</code> - subscription id (needed to unsubscribe)</li>
+</ul>
+<a class="header" href="#example-10" id="example-10"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+{&quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;id&quot;:1, &quot;method&quot;:&quot;signatureSubscribe&quot;, &quot;params&quot;:[&quot;2EBVM6cB8vAAD93Ktr6Vd8p67XPbQzCJX47MpReuiCXJAtcjaxpvWpcg9Ege1Nr5Tk3a2GFrByT7WPBjdsTycY9b&quot;]}
+
+// Result
+{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;result&quot;: 0,&quot;id&quot;: 1}
+</code></pre>
+<a class="header" href="#notification-format-1" id="notification-format-1"><h5>Notification Format:</h5></a>
+<pre><code class="language-bash">{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;method&quot;: &quot;signatureNotification&quot;, &quot;params&quot;: {&quot;result&quot;: &quot;Confirmed&quot;,&quot;subscription&quot;:0}}
+</code></pre>
+<hr />
+<a class="header" href="#signatureunsubscribe" id="signatureunsubscribe"><h3>signatureUnsubscribe</h3></a>
+<p>Unsubscribe from account userdata change notifications</p>
+<a class="header" href="#parameters-11" id="parameters-11"><h5>Parameters:</h5></a>
+<ul>
+<li><code>integer</code> - id of account subscription to cancel</li>
+</ul>
+<a class="header" href="#results-11" id="results-11"><h5>Results:</h5></a>
+<ul>
+<li><code>bool</code> - unsubscribe success message</li>
+</ul>
+<a class="header" href="#example-11" id="example-11"><h5>Example:</h5></a>
+<pre><code class="language-bash">// Request
+{&quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;id&quot;:1, &quot;method&quot;:&quot;signatureUnsubscribe&quot;, &quot;params&quot;:[0]}
+
+// Result
+{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;result&quot;: true,&quot;id&quot;: 1}
+</code></pre>
+<a class="header" href="#solana-wallet-cli" id="solana-wallet-cli"><h2>solana-wallet CLI</h2></a>
+<p>The <a href="https://crates.io/crates/solana">solana crate</a> is distributed with a command-line interface tool</p>
+<a class="header" href="#examples-1" id="examples-1"><h3>Examples</h3></a>
+<a class="header" href="#get-pubkey" id="get-pubkey"><h4>Get Pubkey</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet address
+
+// Return
+&lt;PUBKEY&gt;
+</code></pre>
+<a class="header" href="#airdrop-tokens" id="airdrop-tokens"><h4>Airdrop Tokens</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet airdrop 123
+
+// Return
+&quot;Your balance is: 123&quot;
+</code></pre>
+<a class="header" href="#get-balance" id="get-balance"><h4>Get Balance</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet balance
+
+// Return
+&quot;Your balance is: 123&quot;
+</code></pre>
+<a class="header" href="#confirm-transaction" id="confirm-transaction"><h4>Confirm Transaction</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet confirm &lt;TX_SIGNATURE&gt;
+
+// Return
+&quot;Confirmed&quot; / &quot;Not found&quot;
+</code></pre>
+<a class="header" href="#deploy-program" id="deploy-program"><h4>Deploy program</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet deploy &lt;PATH&gt;
+
+// Return
+&lt;PROGRAM_ID&gt;
+</code></pre>
+<a class="header" href="#unconditional-immediate-transfer" id="unconditional-immediate-transfer"><h4>Unconditional Immediate Transfer</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet pay &lt;PUBKEY&gt; 123
+
+// Return
+&lt;TX_SIGNATURE&gt;
+</code></pre>
+<a class="header" href="#post-dated-transfer" id="post-dated-transfer"><h4>Post-Dated Transfer</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet pay &lt;PUBKEY&gt; 123 \
+    --after 2018-12-24T23:59:00 --require-timestamp-from &lt;PUBKEY&gt;
+
+// Return
+{signature: &lt;TX_SIGNATURE&gt;, processId: &lt;PROCESS_ID&gt;}
+</code></pre>
+<p><em><code>require-timestamp-from</code> is optional. If not provided, the transaction will expect a timestamp signed by this wallet's secret key</em></p>
+<a class="header" href="#authorized-transfer" id="authorized-transfer"><h4>Authorized Transfer</h4></a>
+<p>A third party must send a signature to unlock the tokens.</p>
+<pre><code class="language-sh">// Command
+$ solana-wallet pay &lt;PUBKEY&gt; 123 \
+    --require-signature-from &lt;PUBKEY&gt;
+
+// Return
+{signature: &lt;TX_SIGNATURE&gt;, processId: &lt;PROCESS_ID&gt;}
+</code></pre>
+<a class="header" href="#post-dated-and-authorized-transfer" id="post-dated-and-authorized-transfer"><h4>Post-Dated and Authorized Transfer</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet pay &lt;PUBKEY&gt; 123 \
+    --after 2018-12-24T23:59 --require-timestamp-from &lt;PUBKEY&gt; \
+    --require-signature-from &lt;PUBKEY&gt;
+
+// Return
+{signature: &lt;TX_SIGNATURE&gt;, processId: &lt;PROCESS_ID&gt;}
+</code></pre>
+<a class="header" href="#multiple-witnesses" id="multiple-witnesses"><h4>Multiple Witnesses</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet pay &lt;PUBKEY&gt; 123 \
+    --require-signature-from &lt;PUBKEY&gt; \
+    --require-signature-from &lt;PUBKEY&gt;
+
+// Return
+{signature: &lt;TX_SIGNATURE&gt;, processId: &lt;PROCESS_ID&gt;}
+</code></pre>
+<a class="header" href="#cancelable-transfer" id="cancelable-transfer"><h4>Cancelable Transfer</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet pay &lt;PUBKEY&gt; 123 \
+    --require-signature-from &lt;PUBKEY&gt; \
+    --cancelable
+
+// Return
+{signature: &lt;TX_SIGNATURE&gt;, processId: &lt;PROCESS_ID&gt;}
+</code></pre>
+<a class="header" href="#cancel-transfer" id="cancel-transfer"><h4>Cancel Transfer</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet cancel &lt;PROCESS_ID&gt;
+
+// Return
+&lt;TX_SIGNATURE&gt;
+</code></pre>
+<a class="header" href="#send-signature" id="send-signature"><h4>Send Signature</h4></a>
+<pre><code class="language-sh">// Command
+$ solana-wallet send-signature &lt;PUBKEY&gt; &lt;PROCESS_ID&gt;
+
+// Return
+&lt;TX_SIGNATURE&gt;
+</code></pre>
+<a class="header" href="#indicate-elapsed-time" id="indicate-elapsed-time"><h4>Indicate Elapsed Time</h4></a>
+<p>Use the current system time:</p>
+<pre><code class="language-sh">// Command
+$ solana-wallet send-timestamp &lt;PUBKEY&gt; &lt;PROCESS_ID&gt;
+
+// Return
+&lt;TX_SIGNATURE&gt;
+</code></pre>
+<p>Or specify some other arbitrary timestamp:</p>
+<pre><code class="language-sh">// Command
+$ solana-wallet send-timestamp &lt;PUBKEY&gt; &lt;PROCESS_ID&gt; --date 2018-12-24T23:59:00
+
+// Return
+&lt;TX_SIGNATURE&gt;
+</code></pre>
+<a class="header" href="#usage" id="usage"><h3>Usage</h3></a>
+<pre><code class="language-manpage">solana-wallet 0.11.0
+
+USAGE:
+    solana-wallet [OPTIONS] [SUBCOMMAND]
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+    -k, --keypair &lt;PATH&gt;         /path/to/id.json
+    -n, --network &lt;HOST:PORT&gt;    Rendezvous with the network at this gossip entry point; defaults to 127.0.0.1:8001
+        --proxy &lt;URL&gt;            Address of TLS proxy
+        --port &lt;NUM&gt;             Optional rpc-port configuration to connect to non-default nodes
+        --timeout &lt;SECS&gt;         Max seconds to wait to get necessary gossip from the network
+
+SUBCOMMANDS:
+    address                  Get your public key
+    airdrop                  Request a batch of tokens
+    balance                  Get your balance
+    cancel                   Cancel a transfer
+    confirm                  Confirm transaction by signature
+    deploy                   Deploy a program
+    get-transaction-count    Get current transaction count
+    help                     Prints this message or the help of the given subcommand(s)
+    pay                      Send a payment
+    send-signature           Send a signature to authorize a transfer
+    send-timestamp           Send a timestamp to unlock a transfer
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-address 
+Get your public key
+
+USAGE:
+    solana-wallet address
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-airdrop 
+Request a batch of tokens
+
+USAGE:
+    solana-wallet airdrop &lt;NUM&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+ARGS:
+    &lt;NUM&gt;    The number of tokens to request
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-balance 
+Get your balance
+
+USAGE:
+    solana-wallet balance
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-cancel 
+Cancel a transfer
+
+USAGE:
+    solana-wallet cancel &lt;PROCESS_ID&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+ARGS:
+    &lt;PROCESS_ID&gt;    The process id of the transfer to cancel
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-confirm 
+Confirm transaction by signature
+
+USAGE:
+    solana-wallet confirm &lt;SIGNATURE&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+ARGS:
+    &lt;SIGNATURE&gt;    The transaction signature to confirm
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-deploy 
+Deploy a program
+
+USAGE:
+    solana-wallet deploy &lt;PATH&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+ARGS:
+    &lt;PATH&gt;    /path/to/program.o
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-get-transaction-count 
+Get current transaction count
+
+USAGE:
+    solana-wallet get-transaction-count
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-pay 
+Send a payment
+
+USAGE:
+    solana-wallet pay [FLAGS] [OPTIONS] &lt;PUBKEY&gt; &lt;NUM&gt;
+
+FLAGS:
+        --cancelable    
+    -h, --help          Prints help information
+    -V, --version       Prints version information
+
+OPTIONS:
+        --after &lt;DATETIME&gt;                      A timestamp after which transaction will execute
+        --require-timestamp-from &lt;PUBKEY&gt;       Require timestamp from this third party
+        --require-signature-from &lt;PUBKEY&gt;...    Any third party signatures required to unlock the tokens
+
+ARGS:
+    &lt;PUBKEY&gt;    The pubkey of recipient
+    &lt;NUM&gt;       The number of tokens to send
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-send-signature 
+Send a signature to authorize a transfer
+
+USAGE:
+    solana-wallet send-signature &lt;PUBKEY&gt; &lt;PROCESS_ID&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+ARGS:
+    &lt;PUBKEY&gt;        The pubkey of recipient
+    &lt;PROCESS_ID&gt;    The process id of the transfer to authorize
+</code></pre>
+<pre><code class="language-manpage">solana-wallet-send-timestamp 
+Send a timestamp to unlock a transfer
+
+USAGE:
+    solana-wallet send-timestamp [OPTIONS] &lt;PUBKEY&gt; &lt;PROCESS_ID&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --date &lt;DATETIME&gt;    Optional arbitrary timestamp to apply
+
+ARGS:
+    &lt;PUBKEY&gt;        The pubkey of recipient
+    &lt;PROCESS_ID&gt;    The process id of the transfer to unlock
+</code></pre>
+
+                    </main>
+                </div>
+            </div>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
