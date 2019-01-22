@@ -13,6 +13,7 @@ pub mod accounts;
 pub mod bank;
 pub mod banking_stage;
 pub mod blob_fetch_stage;
+pub mod blob_store;
 pub mod bloom;
 pub mod broadcast_service;
 #[cfg(feature = "chacha")]
@@ -40,6 +41,7 @@ pub mod fetch_stage;
 pub mod fullnode;
 pub mod gossip_service;
 pub mod leader_scheduler;
+pub mod ledger_storage;
 pub mod local_vote_signer_service;
 pub mod mint;
 pub mod packet;
