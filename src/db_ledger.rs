@@ -4,6 +4,7 @@
 
 use crate::entry::create_ticks;
 use crate::entry::Entry;
+use crate::ledger_storage::SlotMeta;
 use crate::mint::Mint;
 use crate::packet::{Blob, SharedBlob, BLOB_HEADER_SIZE};
 use crate::result::{Error, Result};
@@ -112,31 +113,6 @@ pub trait LedgerColumnFamilyRaw {
 
     fn handle(&self) -> ColumnFamily;
     fn db(&self) -> &Arc<DB>;
-}
-
-#[derive(Debug, Default, Deserialize, Serialize, Eq, PartialEq)]
-// The Meta column family
-pub struct SlotMeta {
-    // The total number of consecutive blob starting from index 0
-    // we have received for this slot.
-    pub consumed: u64,
-    // The entry height of the highest blob received for this slot.
-    pub received: u64,
-    // The slot the blob with index == "consumed" is in
-    pub consumed_slot: u64,
-    // The slot the blob with index == "received" is in
-    pub received_slot: u64,
-}
-
-impl SlotMeta {
-    fn new() -> Self {
-        SlotMeta {
-            consumed: 0,
-            received: 0,
-            consumed_slot: 0,
-            received_slot: 0,
-        }
-    }
 }
 
 pub struct MetaCf {

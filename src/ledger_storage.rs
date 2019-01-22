@@ -2,7 +2,6 @@
 //! parallel verification, iterative read, append-based writing, and random-access
 //! reading of a persistent ledger
 
-use crate::db_ledger::SlotMeta;
 use crate::entry::Entry;
 use crate::mint::Mint;
 use crate::packet::{Blob, SharedBlob};
@@ -13,6 +12,31 @@ use solana_sdk::signature::Keypair;
 use std::borrow::Borrow;
 
 pub const DB_LEDGER_DIRECTORY: &str = "rocksdb";
+
+#[derive(Debug, Default, Deserialize, Serialize, Eq, PartialEq)]
+// The Meta column family
+pub struct SlotMeta {
+    // The total number of consecutive blob starting from index 0
+    // we have received for this slot.
+    pub consumed: u64,
+    // The entry height of the highest blob received for this slot.
+    pub received: u64,
+    // The slot the blob with index == "consumed" is in
+    pub consumed_slot: u64,
+    // The slot the blob with index == "received" is in
+    pub received_slot: u64,
+}
+
+impl SlotMeta {
+    pub(crate) fn new() -> Self {
+        SlotMeta {
+            consumed: 0,
+            received: 0,
+            consumed_slot: 0,
+            received_slot: 0,
+        }
+    }
+}
 
 /// Intended be a replacement for direct use of anything from the `db_ledger` module
 pub trait LedgerStorage: Sized {
@@ -68,10 +92,10 @@ pub trait LedgerStorage: Sized {
         slot_height: u64,
     ) -> Result<(u64, u64), Self::Error>;
 
-    /// Returns an iterator over all entries in the ledger
-    fn read_ledger<I>(&self) -> Result<I, Self::Error>
-    where
-        I: IntoIterator<Item = Entry>;
+    // /// Returns an iterator over all entries in the ledger
+    // fn read_ledger<I>(&self) -> Result<I, Self::Error>
+    // where
+    //     I: IntoIterator<Item = Entry>;
 
     fn get_coding_blob_bytes(&self, slot: u64, index: u64) -> Result<Option<Vec<u8>>, Self::Error>;
 
@@ -108,7 +132,7 @@ pub trait LedgerStorageExt: LedgerStorage {
     fn get_tmp_ledger_path(name: &str) -> String;
 
     /// Creates a temporary ledger with a genesis tick and returns the path to it
-    fn create_tmp_ledger_with_mint(name: str, mint: &Mint) -> String;
+    fn create_tmp_ledger_with_mint(name: &str, mint: &Mint) -> String;
 
     /// Creates a temporary ledger with genesis tick and returns a the mint and path
     fn create_tmp_genesis(
