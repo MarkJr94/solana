@@ -125,7 +125,9 @@ pub trait LedgerStorageExt: LedgerStorage {
     /// creates a ledger at the given path, signing the blobs with `keypair`.
     ///
     /// `entries` are used to generate the first blobs and create the genesis tick
-    fn genesis<'a, I>(ledger_path: &str, keypair: &Keypair, entries: I) -> Result<(), Self::Error>;
+    fn genesis<'a, I>(ledger_path: &str, keypair: &Keypair, entries: I) -> Result<(), Self::Error>
+    where
+        I: IntoIterator<Item = &'a Entry>;
 
     /// Given the ledger name, returns path to that ledger
     /// There is no guarantee that this ledger actually exists
